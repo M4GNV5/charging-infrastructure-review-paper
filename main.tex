@@ -6,24 +6,82 @@
 \title{Minimal Working Example of an IARIA Paper}
 \author{
   \IEEEauthorblockN{%
-    Jakob Löw\orcidlink{0009-0006-7088-8684}, Hans-Joachim Hof\orcidlink{0000-0002-6930-9271}}
+    Jakob Löw\orcidlink{0009-0006-7088-8684}, Kevin Mayer\orcidlink{0000-0002-5597-3913}, Hans-Joachim Hof\orcidlink{0000-0002-6930-9271}}
   \IEEEauthorblockA{%
     CARISSMA Institute of Electric, Connected and Secure Mobility \\
     University of applied sciences Ingolstadt\\
     Ingolstadt, Germany\\
-    e-mail: {\tt$\lbrace$jakob.loew\,|\,hof$\rbrace$@thi.de}
+    e-mail: {\tt$\lbrace$jakob.loew\,|\,kevin.mayer\,|\,hof$\rbrace$@thi.de}
 } }
 \begin{document}
 \maketitle
 \begin{abstract}
 This paper is a minimal working example.
+% TODO: copy some parts from expose introduction?
 \end{abstract}
 \begin{IEEEkeywords}
 minimal; MWE; IARIA.
 \end{IEEEkeywords}
 
 \section{Introduction}
-Here we go \cite{johnson_review_2022}.
+Many countries are currently transitioning away from combustion engine vehicles towards battery electric ones.
+This transition is happening at a rapid rate, because buying an electric vehicle often gets incentivised through tax reductions or straight refunds \cite{stats_electricvehicles}.
+With people buying more and more electric vehicles, the demand for charging infrastructure rises.
+In Germany not only electric vehicles, but also the buildup of charging infrastructure got heaviliy subsidized by the government.
+This high demand and government incentives resulted in a rapid growth in charging station numbers, suppliers and operators \cite{stats_chargepoints}.
+Due to the rushed development, the cybersecurity of current charging stations is below average compared to other cyberphysical systems \cite{nasr_power_2022, johnson_review_2022, ahalawat_security_2022}.
+Recently cybersecurity researchers investigating charging backend infrastructure have found a range of text book vulernabilities, such as SQL injection, cross site scripting or unauthenticated remote update procedures \cite{nasr_power_2022}. \\
+In order to charge vehicle batteries fast charging stations perform high level communication with the vehicle,  exchanging charging conditions and limits.
+
+\section{Charging Station Communication}
+Electricity generally comes in two forms: alternating current (AC) and direct current (DC).
+While power grids are usually AC, batteries need to be charged using DC.
+Therefore the AC needs to be converted to DC either in the car or in the charging station itself.
+While cars usually come with an onboard AC to DC converter for charging the onboard battery their power is usually limited between 7 and 22 kW.
+In order to achieve higher charging powers, a fast charging station provides a stationary AC to DC converter. Placing it outside of the car removes weight requirements, simplifies cooling and thus allows higher charging currents. \\
+In general charging stations can be divided into three categories:
+\begin{enumerate}
+\item Unmetered AC charging (often used in residential buildings)
+\item Commercial AC charging stations
+\item DC fast charging stations
+\end{enumerate}%
+%
+The following subsections describe the communication and payment mechanisms of these three kinds of charging stations as well as the included security concepts.
+
+\subsection{Low Level Communication}
+AC charging stations usually supply grid power directly, making them just sockets with some very basic communication to the vehicle.
+% TODO explain resistor communication
+% TODO: ref ISO15118 standards (and others?) (maybe gonium talk?)
+
+\subsection{High Level Communication}
+DC charging stations on the other hand are required to communicate to the vehicle for properly supplying the correct voltage and power to the battery.
+For this high level communication the industry standard ISO15118 was created, enabling interoperability between different vehicle manufacturers and charging station vendors.
+While this standard allows possibilities for payment processing and value added services, it also comes with a lot of security implications.
+% TODO extend this
+\subsection{ISO15118 Security Concepts}
+% TODO: PnC, TLS, TLS-downgrade
+\subsection{Other Communication Standards}
+% chademo, GB/T, MCS, ...
+
+\section{Charging Station Architectures}
+% TODO: explain proposed architectures in \cite{...}
+\subsection{Proposed architectures}
+% TODO: 
+\subsection{Integration of battery storage and photovoltaics}
+% TODO
+\subsection{Independent charging stations}
+% TODO: alpitronic
+\subsection{DC Bus Systems}
+% TODO: Tesla v4
+
+\section{Cybersecurity Impact}
+% TODO: describe potential impacts caused by attacks on charging infrastructure
+
+\section{Cybersecurity State}
+% TODO: describe current state of cybersecurity
+\subsection{At-home Chargers}
+\subsection{Fast Charging Stations}
+\subsection{Backend Services}
 
 \printbibliography
 \end{document}
