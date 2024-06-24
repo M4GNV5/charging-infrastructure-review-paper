@@ -9,8 +9,8 @@
     Jakob Löw\orcidlink{0009-0006-7088-8684}, Kevin Mayer\orcidlink{0000-0002-5597-3913}, Hans-Joachim Hof\orcidlink{0000-0002-6930-9271}}
   \IEEEauthorblockA{%
     CARISSMA Institute of Electric, Connected and Secure Mobility \\
-    University of applied sciences Ingolstadt\\
-    Ingolstadt, Germany\\
+    University of applied sciences Ingolstadt \\
+    Ingolstadt, Germany \\
     e-mail: {\tt$\lbrace$jakob.loew\,|\,kevin.mayer\,|\,hof$\rbrace$@thi.de}
 } }
 \begin{document}
@@ -30,8 +30,13 @@ With people buying more and more electric vehicles, the demand for charging infr
 In Germany not only electric vehicles, but also the buildup of charging infrastructure got heaviliy subsidized by the government.
 This high demand and government incentives resulted in a rapid growth in charging station numbers, suppliers and operators \cite{stats_chargepoints}.
 Due to the rushed development, the cybersecurity of current charging stations is below average compared to other cyberphysical systems \cite{nasr_power_2022, johnson_review_2022, ahalawat_security_2022}.
-Recently cybersecurity researchers investigating charging backend infrastructure have found a range of text book vulernabilities, such as SQL injection, cross site scripting or unauthenticated remote update procedures \cite{nasr_power_2022}. \\
-In order to charge vehicle batteries fast charging stations perform high level communication with the vehicle,  exchanging charging conditions and limits.
+Recently cybersecurity researchers investigating charging backend infrastructure have found a range of text book vulernabilities, such as SQL injection, cross site scripting or unauthenticated remote update procedures \cite{nasr_power_2022}. %
+%% \cite{gonium_talk} - gonium talk about charging stations: TODO often other vulnerabilities
+%% \cite{garofalaki_electric_2022} - OCPP security issues and challenges
+\\
+In order to charge vehicle batteries fast charging stations perform high level communication with the vehicle, exchanging charging conditions and limits. The ISO15118 standard was created to allow interoperability between charging stations and vehicles of different manufacturers.
+While this paper will briefly cover communication aspects of basic charging stations, its focus is on high level communication between DC fast charging stations and the ISO15118 standard.
+% TODO extend this as transition to ISO15118 / high level charging
 
 \section{Charging Station Communication}
 Electricity generally comes in two forms: alternating current (AC) and direct current (DC).
@@ -50,8 +55,10 @@ The following subsections describe the communication and payment mechanisms of t
 
 \subsection{Low Level Communication}
 AC charging stations usually supply grid power directly, making them just sockets with some very basic communication to the vehicle.
-% TODO explain resistor communication
-% TODO: ref ISO15118 standards (and others?) (maybe gonium talk?)
+
+% refs:
+%% \cite{antoun_detailed_2020} - claims grid communication exists, claims home chargers have high-level communication with vehicles
+%% \cite{IEC61851} - resistor & PWM communication
 
 \subsection{High Level Communication}
 DC charging stations on the other hand are required to communicate to the vehicle for properly supplying the correct voltage and power to the battery.
@@ -63,10 +70,39 @@ While this standard allows possibilities for payment processing and value added 
 \subsection{Other Communication Standards}
 % chademo, GB/T, MCS, ...
 
+\section{Charging station technologies and vendors}
+%% \cite{das_electric_2020} - EV market share, charging standards list
+%% TODO: add vendor market analysis
+%% TODO: add charge port analysis
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.489\textwidth]{graphs/market_analysis.pdf}
+    \caption{CCS charging station vendor market share}
+    \label{fig:marketshare}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.489\textwidth]{graphs/socket_analysis.pdf}
+    \caption{Charging station socket market share}
+    \label{fig:sockets}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.489\textwidth]{graphs/socket_probability.pdf}
+    \caption{Probability to find socket X at a random charging location}
+    \label{fig:socketsprob}
+\end{figure}
+
+
+
 \section{Charging Station Architectures}
-% TODO: explain proposed architectures in \cite{...}
+% TODO: explain proposed architectures
+%% \cite{acharya_cybersecurity_2020} - very good architecture schematic of grid/charging station/EV connections and communication.
+
 \subsection{Proposed architectures}
-% TODO: 
+%% \cite{deb_review_2021} - DC bus architektur
 \subsection{Integration of battery storage and photovoltaics}
 % TODO
 \subsection{Independent charging stations}
@@ -74,14 +110,22 @@ While this standard allows possibilities for payment processing and value added 
 \subsection{DC Bus Systems}
 % TODO: Tesla v4
 
-\section{Cybersecurity Impact}
-% TODO: describe potential impacts caused by attacks on charging infrastructure
+\section{Attack Vectors and Impact}
+%% \cite{bao_threat_2018} - ISO15118 threat analysis
+%% \cite{kohler_brokenwire_2023} - jamming powerline in ISO15118 communication
+%% \cite{nasr_chargeprint_2023} - framework for backend service security analysis
+
+% impact:
+%% \cite{sanghvi_cybersecurity_2021} - energy simulation using OpenDSS - impact of vulnerabilities
+%% \cite{acharya_cybersecurity_2020} - very good architecture schematic of grid/charging station/EV connections and communication.
+
+% TODO: subsections
 
 \section{Cybersecurity State}
-% TODO: describe current state of cybersecurity
-\subsection{At-home Chargers}
-\subsection{Fast Charging Stations}
-\subsection{Backend Services}
+%% \cite{sklyar_chargepoint_nodate} - pentest of chargepoint charging station: many text-book vulnerabilities / buffer overflows / linux fails (suid bit, ssh rev tunnel to mothership, ...)
+
+\section{Conclusion}
+%% \cite{mccarthy_cybersecurity_2023} - NIST guidelines for IT security measures in EVs / charging stations / ... - as a recommendation?
 
 \printbibliography
 \end{document}

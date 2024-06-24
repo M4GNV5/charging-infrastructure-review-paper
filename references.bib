@@ -8,6 +8,13 @@
 	month = {11}
 }
 
+@misc{gonium_talk,
+    title = {Ladeinfrastruktur für Elektroautos: Ausbau statt Sicherheit},
+    author = {Mathias Dalheimer},
+    url = {https://media.ccc.de/v/34c3-9092-ladeinfrastruktur_fur_elektroautos_ausbau_statt_sicherheit},
+    year = {2017}, month={12}
+}
+
 @misc{stats_chargepoints,
 	title = {Anzahl der öffentlichen Ladepunkte in Deutschland von Januar 2017 bis Oktober 2023 [Graph], Bundesnetzagentur},
 	author = {Bundesnetzagentur},
@@ -39,6 +46,35 @@
 	year = {2024},
 	month = {5}
 }
+
+@electronic{IEC61851,
+  added-at = {2012-09-12T15:57:05.000+0200},
+  author = {IEC},
+  biburl = {https://www.bibsonomy.org/bibtex/20f7e9fbfbe228601d6229a96a619634a/beyondhor1zon},
+  interhash = {313b770a1af4d12d1f629ec0269b1829},
+  intrahash = {0f7e9fbfbe228601d6229a96a619634a},
+  keywords = {iec iec61851},
+  timestamp = {2012-09-20T17:36:54.000+0200},
+  title = {IEC 61851-1 ed2.0: Electric vehicle conductive charging system - Part 1: General requirements},
+  url = {http://webstore.iec.ch/webstore/webstore.nsf/Artnum_PK/44636},
+  year = 2010
+}
+
+@electronic{ISO15118:2,
+  added-at = {2012-09-12T16:08:11.000+0200},
+  author = {ISO/IEC},
+  biburl = {https://www.bibsonomy.org/bibtex/22a0459b9cd0832151c07605be090e6c6/beyondhor1zon},
+  interhash = {ec8adafb67191e45a5b3c3a8d9aba00b},
+  intrahash = {2a0459b9cd0832151c07605be090e6c6},
+  keywords = {iec iso iso15118},
+  timestamp = {2012-09-20T17:40:33.000+0200},
+  title = {ISO/IEC DIS 15118-2: Road vehicles - Vehicle to grid communication interface -- Part 2: Network and application protocol requirements},
+  url = {http://www.iso.org/iso/iso_catalogue/catalogue_ics/catalogue_detail_ics.htm?ics1=43&ics2=120&ics3=&csnumber=55366},
+  year = 2012
+}
+
+
+
 
 
 
@@ -313,11 +349,13 @@ Publisher: Multidisciplinary Digital Publishing Institute},
 	file = {Garofalaki et al. - 2022 - Electric Vehicle Charging A Survey on the Securit.pdf:/home/jakob/Zotero/storage/W3JHKC23/Garofalaki et al. - 2022 - Electric Vehicle Charging A Survey on the Securit.pdf:application/pdf},
 }
 
-
-
-
-
-
+@article{chen_enfuzz_nodate,
+	title = {{EnFuzz}: {Ensemble} {Fuzzing} with {Seed} {Synchronization} among {Diverse} {Fuzzers}},
+	abstract = {Fuzzing is widely used for vulnerability detection. There are various kinds of fuzzers with different fuzzing strategies, and most of them perform well on their targets. However, in industrial practice, it is found that the performance of those well-designed fuzzing strategies is challenged by the complexity and diversity of real-world applications. In this paper, we systematically study an ensemble fuzzing approach. First, we deﬁne the diversity of base fuzzers in three heuristics: diversity of coverage information granularity, diversity of input generation strategy and diversity of seed selection and mutation strategy. Based on those heuristics, we choose several of the most recent base fuzzers that are as diverse as possible, and propose a globally asynchronous and locally synchronous (GALS) based seed synchronization mechanism to seamlessly ensemble those base fuzzers and obtain better performance. For evaluation, we implement EnFuzz based on several widely used fuzzers such as QSYM and FairFuzz, and then we test them on LAVA-M and Google’s fuzzing-test-suite, which consists of 24 widely used real-world applications. This experiment indicates that, under the same constraints for resources, these base fuzzers perform differently on different applications, while EnFuzz always outperforms other fuzzers in terms of path coverage, branch coverage and bug discovery. Furthermore, EnFuzz found 60 new vulnerabilities in several well-fuzzed projects such as libpng and libjpeg, and 44 new CVEs were assigned.},
+	language = {en},
+	author = {Chen, Yuanliang and Jiang, Yu and Ma, Fuchen and Liang, Jie and Wang, Mingzhe and Zhou, Chijin and Jiao, Xun and Su, Zhuo},
+	file = {Chen et al. - EnFuzz Ensemble Fuzzing with Seed Synchronization.pdf:/home/jakob/Zotero/storage/LPRB5IZT/Chen et al. - EnFuzz Ensemble Fuzzing with Seed Synchronization.pdf:application/pdf},
+}
 
 @misc{jiang_survey_2024,
 	title = {A {Survey} of {Network} {Protocol} {Fuzzing}: {Model}, {Techniques} and {Directions}},
@@ -412,4 +450,217 @@ Publisher: Multidisciplinary Digital Publishing Institute},
 	year = {2024},
 	pages = {253--268},
 	file = {Andarzian et al. - 2024 - Green-Fuzz Efficient Fuzzing for Network Protocol.pdf:/home/jakob/Zotero/storage/HY9UHF66/Andarzian et al. - 2024 - Green-Fuzz Efficient Fuzzing for Network Protocol.pdf:application/pdf},
+}
+
+@article{bao_threat_2018,
+	title = {A threat analysis of the vehicle-to-grid charging protocol {ISO} 15118},
+	volume = {33},
+	issn = {1865-2042},
+	url = {https://doi.org/10.1007/s00450-017-0342-y},
+	doi = {10.1007/s00450-017-0342-y},
+	abstract = {This work performs a security analysis of the vehicle-to-grid charging protocol ISO 15118 and presents various scenarios of how to compromise the availability of the charging service or the integrity, authenticity, or confidentiality of the communication on a protocol level. Furthermore, it analyzes processes related to the authentication, transfer of information, and the certification hierarchy for vulnerabilities, which could be used by an adversary to gain unfair advantage over the charging process and use it for his own self-interest, mostly harming legitimate users or other participants.},
+	language = {en},
+	number = {1},
+	urldate = {2024-06-14},
+	journal = {Computer Science - Research and Development},
+	author = {Bao, Kaibin and Valev, Hristo and Wagner, Manuela and Schmeck, Hartmut},
+	month = feb,
+	year = {2018},
+	keywords = {Charging protocol, Electric vehicle, ISO 15118, Thread analysis, Vehicle-to-grid},
+	pages = {3--12},
+	file = {Full Text PDF:/home/jakob/Zotero/storage/6D3AH9CT/Bao et al. - 2018 - A threat analysis of the vehicle-to-grid charging .pdf:application/pdf},
+}
+
+@article{acharya_cybersecurity_2020,
+	title = {Cybersecurity of {Smart} {Electric} {Vehicle} {Charging}: {A} {Power} {Grid} {Perspective}},
+	volume = {8},
+	issn = {2169-3536},
+	shorttitle = {Cybersecurity of {Smart} {Electric} {Vehicle} {Charging}},
+	url = {https://ieeexplore.ieee.org/abstract/document/9272723},
+	doi = {10.1109/ACCESS.2020.3041074},
+	abstract = {With the roll-out of electric vehicles (EVs), the automobile industry is transitioning away from conventional gasoline-fueled vehicles. As a result, the EV charging demand is continuously growing and to meet this growing demand, various types of electric vehicle charging stations (EVCSs) are being deployed for commercial and residential use. This nexus of EVs, EVCSs, and power grids creates complex cyber-physical interdependencies that can be maliciously exploited to damage each of these components. This paper describes and analyzes cyber vulnerabilities that arise at this nexus and points to the current and emerging gaps in the security of the EV charging ecosystem. These vulnerabilities must be addressed as the number of EVs continue to grow worldwide and their impact on the power grid becomes more viable. The purpose of this paper is to list and characterize all backdoors that can be exploited to seriously harm either EV and EVCS equipments, or power grid, or both. The presented issues and challenges intend to ignite research efforts on cybersecurity of smart EV charging and enhancing power grid resiliency against such demand-side cyberattacks in general.},
+	urldate = {2024-06-14},
+	journal = {IEEE Access},
+	author = {Acharya, Samrat and Dvorkin, Yury and Pandžić, Hrvoje and Karri, Ramesh},
+	year = {2020},
+	note = {Conference Name: IEEE Access},
+	keywords = {Computer crime, Computer security, Cybersecurity, Electric vehicle charging, electric vehicle charging stations, electric vehicles, HVAC, Power grids, Protocols, Security, smart grids},
+	pages = {214434--214453},
+	file = {IEEE Xplore Full Text PDF:/home/jakob/Zotero/storage/AGYK7WPI/Acharya et al. - 2020 - Cybersecurity of Smart Electric Vehicle Charging .pdf:application/pdf},
+}
+
+@inproceedings{kohler_brokenwire_2023,
+	title = {Brokenwire : {Wireless} {Disruption} of {CCS} {Electric} {Vehicle} {Charging}},
+	shorttitle = {Brokenwire},
+	url = {http://arxiv.org/abs/2202.02104},
+	doi = {10.14722/ndss.2023.23251},
+	abstract = {We present a novel attack against the Combined Charging System, one of the most widely used DC rapid charging technologies for electric vehicles (EVs). Our attack, Brokenwire, interrupts necessary control communication between the vehicle and charger, causing charging sessions to abort. The attack requires only temporary physical proximity and can be conducted wirelessly from a distance, allowing individual vehicles or entire fleets to be disrupted stealthily and simultaneously. In addition, it can be mounted with off-the-shelf radio hardware and minimal technical knowledge. By exploiting CSMA/CA behavior, only a very weak signal needs to be induced into the victim to disrupt communication - exceeding the effectiveness of broadband noise jamming by three orders of magnitude. The exploited behavior is a required part of the HomePlug Green PHY, DIN 70121 \& ISO 15118 standards and all known implementations exhibit it. We first study the attack in a controlled testbed and then demonstrate it against eight vehicles and 20 chargers in real deployments. We find the attack to be successful in the real world, at ranges up to 47 m, for a power budget of less than 1 W. We further show that the attack can work between the floors of a building (e.g., multi-story parking), through perimeter fences, and from `drive-by' attacks. We present a heuristic model to estimate the number of vehicles that can be attacked simultaneously for a given output power. Brokenwire has immediate implications for a substantial proportion of the around 12 million battery EVs on the roads worldwide - and profound effects on the new wave of electrification for vehicle fleets, both for private enterprise and crucial public services, as well as electric buses, trucks and small ships. As such, we conducted a disclosure to the industry and discussed a range of mitigation techniques that could be deployed to limit the impact.},
+	urldate = {2024-06-14},
+	booktitle = {Proceedings 2023 {Network} and {Distributed} {System} {Security} {Symposium}},
+	author = {Köhler, Sebastian and Baker, Richard and Strohmeier, Martin and Martinovic, Ivan},
+	year = {2023},
+	note = {arXiv:2202.02104 [cs]},
+	keywords = {Computer Science - Cryptography and Security},
+	file = {arXiv Fulltext PDF:/home/jakob/Zotero/storage/XUF4ILJK/Köhler et al. - 2023 - Brokenwire  Wireless Disruption of CCS Electric V.pdf:application/pdf;arXiv.org Snapshot:/home/jakob/Zotero/storage/G289FIYW/2202.html:text/html},
+}
+
+@inproceedings{lee_study_2014,
+	title = {Study on {Analysis} of {Security} {Vulnerabilities} and {Countermeasures} in {ISO}/{IEC} 15118 {Based} {Electric} {Vehicle} {Charging} {Technology}},
+	url = {https://ieeexplore.ieee.org/document/7021815},
+	doi = {10.1109/ICITCS.2014.7021815},
+	abstract = {Electric vehicle, which is one of the major components and research areas of Smartgrid, has been considered as one way of reducing greenhouse gas. ISO/IEC 15118 standard defines data and communication interface to charge electric vehicles. The data is used in communication between electric vehicles and power charging infrastructure. In this paper, the security vulnerabilities of ISO/IEC 15118 standard based charging technology are analyzed, and the countermeasures for them are proposed.},
+	urldate = {2024-06-14},
+	booktitle = {2014 {International} {Conference} on {IT} {Convergence} and {Security} ({ICITCS})},
+	author = {Lee, Seokcheol and Park, Yongmin and Lim, Hyunwoo and Shon, Taeshik},
+	month = oct,
+	year = {2014},
+	keywords = {Electric vehicles, Electricity, IEC standards, ISO standards, Security},
+	pages = {1--4},
+	file = {IEEE Xplore Abstract Record:/home/jakob/Zotero/storage/V56B3AF4/7021815.html:text/html;IEEE Xplore Full Text PDF:/home/jakob/Zotero/storage/QVVSN6GE/Lee et al. - 2014 - Study on Analysis of Security Vulnerabilities and .pdf:application/pdf},
+}
+
+@article{kilic_tls-handshake_2024,
+	title = {{TLS}-handshake for {Plug} and {Charge} in vehicular communications},
+	volume = {243},
+	issn = {1389-1286},
+	url = {https://www.sciencedirect.com/science/article/pii/S1389128624001130},
+	doi = {10.1016/j.comnet.2024.110281},
+	abstract = {Electric vehicle technology has brought some important issues to order. Securing the communication between electric vehicle and charging station is an important one. The International Organization for Standardization released ISO 15118 standard to specify the communication between electric vehicles and electric vehicle supply equipment. The ISO 15118 standard requires Transport Layer Security function for secure charging communication between electric vehicle and charging station as mandatory. The Transport Layer Security requirements have been completely changed with the latest version of the standard (ISO 15118-20) and have not been clearly described and implemented yet. The implementation of the function causes an inevitable vulnerability due to non-functioning authentication resulting with the entire vehicle function and security system can suddenly stop working. For this reason, new Transport Layer Security protocol must urgently be analyzed, developed, integrated, and implemented. This study proposes solutions for the development, implementation, realization of Transport Layer Security handshake requirements and functions between electric vehicle and charging station with ISO 15118 protocol. The new and existing Transport Layer Security requirements, analyzed, evaluated and the new Transport Layer Security functions derived and fully described. Based on these requirements and functions, a Transport Layer Security communication sequence and processes are developed and implemented and validated on the test bench. The validation proved sufficient implementation of the Transport Layer Security functions (successful authentication, exchange of cipher suite parameters and generation of the TLS master key). The messages were prosperous encrypted and decrypted with the generated master key. Thus, Transport Layer Security handshake is developed, implemented, and validated with this study.},
+	urldate = {2024-06-14},
+	journal = {Computer Networks},
+	author = {Kilic, Ahmet},
+	month = apr,
+	year = {2024},
+	keywords = {Charging infrastructure, Cipher suites, Communication protocol, Electric vehicle, ISO 15118 protocol, Secure communication, Security, Transport layer security (TLS)},
+	pages = {110281},
+}
+
+@inproceedings{baker_losing_2019,
+	title = {Losing the {Car} {Keys}: {Wireless} \{{PHY}-{Layer}\} {Insecurity} in \{{EV}\} {Charging}},
+	isbn = {978-1-939133-06-9},
+	shorttitle = {Losing the {Car} {Keys}},
+	url = {https://www.usenix.org/conference/usenixsecurity19/presentation/baker},
+	language = {en},
+	urldate = {2024-06-14},
+	author = {Baker, Richard and Martinovic, Ivan},
+	year = {2019},
+	pages = {407--424},
+	file = {Full Text PDF:/home/jakob/Zotero/storage/98IFP5BA/Baker and Martinovic - 2019 - Losing the Car Keys Wireless PHY-Layer Insecuri.pdf:application/pdf},
+}
+
+@inproceedings{vu_living_2024,
+	address = {New York, NY, USA},
+	series = {{ACM} {SE} '24},
+	title = {Living on the {Electric} {Vehicle} and {Cloud} {Era}: {A} {Study} of {Cyber} {Vulnerabilities}, {Potential} {Impacts}, and {Possible} {Strategies}},
+	isbn = {9798400702372},
+	shorttitle = {Living on the {Electric} {Vehicle} and {Cloud} {Era}},
+	url = {https://dl.acm.org/doi/10.1145/3603287.3651209},
+	doi = {10.1145/3603287.3651209},
+	abstract = {In recent years, electric vehicles (EVs) have emerged as a sustainable alternative to conventional automobiles. Distinguished by their environmental friendliness, superior performance, reduced noise, and low maintenance requirements, EVs offer numerous advantages over traditional vehicles. The integration of electric vehicles with cloud computing has heralded a transformative shift in the automotive industry. However, as EVs become increasingly interconnected with the internet, various devices, and infrastructure, they become susceptible to cyberattacks. These attacks pose a significant risk to the safety, privacy, and functionality of both the vehicles and the broader transportation infrastructure. In this paper, we delve into the topic of electric vehicles and their connectivity to the cloud. We scrutinize the potential attack vectors that EVs are vulnerable to and the consequential impact on vehicle operations. Moreover, we outline both general and specific strategies aimed at thwarting these cyberattacks. Additionally, we anticipate future developments aimed at enhancing EV performance and reducing security risks.},
+	urldate = {2024-06-14},
+	booktitle = {Proceedings of the 2024 {ACM} {Southeast} {Conference}},
+	publisher = {Association for Computing Machinery},
+	author = {Vu, Long and Suo, Kun and Islam, Md Romyull and Dhar, Nobel and Nguyen, Tu N. and He, Selena and Shi, Yong},
+	month = apr,
+	year = {2024},
+	keywords = {Connectivity, Cyber Security, Electric Vehicle, Hardware, Software},
+	pages = {18--26},
+	file = {Full Text PDF:/home/jakob/Zotero/storage/WHNUIR7P/Vu et al. - 2024 - Living on the Electric Vehicle and Cloud Era A St.pdf:application/pdf},
+}
+
+@inproceedings{vailoces_securing_2023,
+	address = {New York, NY, USA},
+	series = {{DIVANet} '23},
+	title = {Securing the {Electric} {Vehicle} {Charging} {Infrastructure}: {An} {In}-{Depth} {Analysis} of {Vulnerabilities} and {Countermeasures}},
+	isbn = {9798400703690},
+	shorttitle = {Securing the {Electric} {Vehicle} {Charging} {Infrastructure}},
+	url = {https://dl.acm.org/doi/10.1145/3616392.3623424},
+	doi = {10.1145/3616392.3623424},
+	abstract = {The growth of electric vehicle (EV) adoption is bringing an increased demand for electric vehicle supply equipment (EVSE) infrastructure. With this growth, however, it is inevitable that vulnerabilities are discovered, which motivates an in-depth analysis of the security posture of EVSE infrastructure and development of a strong cybersecurity program to ensure its security and resiliency. In this research paper, we will analyze and highlight various vulnerabilities in EVSE systems, including weak authentication mechanisms, and end-to-end communications. We will identify as well potential attack scenarios that can create vulnerabilities that have consequences that range from physical damage to major service disruptions, and identify various solutions and countermeasures to mitigate these vulnerabilities.},
+	urldate = {2024-06-14},
+	booktitle = {Proceedings of the {Int}'l {ACM} {Symposium} on {Design} and {Analysis} of {Intelligent} {Vehicular} {Networks} and {Applications}},
+	publisher = {Association for Computing Machinery},
+	author = {Vailoces, Gerald and Keith, Alexander and Almehmadi, Abdulaziz and El-Khatib, Khalil},
+	month = oct,
+	year = {2023},
+	keywords = {central management systems, charging stations, countermeasures, cybersecurity, electric vehicle, vulnerabilities},
+	pages = {31--38},
+	file = {Full Text PDF:/home/jakob/Zotero/storage/IKC95BD9/Vailoces et al. - 2023 - Securing the Electric Vehicle Charging Infrastruct.pdf:application/pdf},
+}
+
+@article{sarieddine_investigating_2023,
+	title = {Investigating the {Security} of {EV} {Charging} {Mobile} {Applications} as an {Attack} {Surface}},
+	volume = {7},
+	issn = {2378-962X},
+	url = {https://dl.acm.org/doi/10.1145/3609508},
+	doi = {10.1145/3609508},
+	abstract = {The adoption rate of EVs has witnessed a significant increase in recent years driven by multiple factors, chief among which is the increased flexibility and ease of access to charging infrastructure. To improve user experience and increase system flexibility, mobile applications have been incorporated into the EV charging ecosystem. EV charging mobile applications allow consumers to remotely trigger actions on charging stations and use functionalities such as start/stop charging sessions, pay for usage, and locate charging stations, to name a few. In this article, we study the security posture of the EV charging ecosystem against a new type of remote that exploits vulnerabilities in the EV charging mobile applications as an attack surface. We leverage a combination of static and dynamic analysis techniques to analyze the security of widely used EV charging mobile applications. Our analysis was performed on 31 of the most widely used mobile applications including their interactions with various components such as cloud management systems. The attack scenarios that exploit these vulnerabilities were verified on a real-time co-simulation test bed. Our discoveries indicate the lack of user/vehicle verification and improper authorization for critical functions, which allow adversaries to remotely hijack charging sessions and launch attacks against the connected critical infrastructure. The attacks were demonstrated using the EVCS mobile applications showing the feasibility and the applicability of our attacks. Indeed, we discuss specific remote attack scenarios and their impact on EV users. More importantly, our analysis results demonstrate the feasibility of leveraging existing vulnerabilities across various EV charging mobile applications to perform wide-scale coordinated remote charging/discharging attacks against the connected critical infrastructure (e.g., power grid), with significant economical and operational implications. Finally, we propose countermeasures to secure the infrastructure and impede adversaries from performing reconnaissance and launching remote attacks using compromised accounts.},
+	number = {4},
+	urldate = {2024-06-14},
+	journal = {ACM Transactions on Cyber-Physical Systems},
+	author = {Sarieddine, Khaled and Sayed, Mohammad Ali and Torabi, Sadegh and Atallah, Ribal and Assi, Chadi},
+	month = oct,
+	year = {2023},
+	keywords = {cyber-physical systems, Electric vehicle charging, mobile application, security analysis},
+	pages = {26:1--26:28},
+	file = {Full Text PDF:/home/jakob/Zotero/storage/P64QI6MG/Sarieddine et al. - 2023 - Investigating the Security of EV Charging Mobile A.pdf:application/pdf},
+}
+
+@article{bharathidasan_review_2022,
+	title = {A review on electric vehicle: {Technologies}, energy trading, and cyber security},
+	volume = {8},
+	issn = {2352-4847},
+	shorttitle = {A review on electric vehicle},
+	url = {https://www.sciencedirect.com/science/article/pii/S235248472201410X},
+	doi = {10.1016/j.egyr.2022.07.145},
+	abstract = {The energy transition is an essential effort from a variety of sectors and levels to achieve a carbon-neutral, larger-renewable integrated civilization. The transportation industry, which is largely concentrated in urban areas, emits more than 20\% of total greenhouse gas emissions. Various technological difficulties are confronted and resolved as a result of this focus. Consequently, pursuit and research focusing on the integration of electric vehicles (EVs) powered by renewable energy sources are currently a viable option for combating climate change and advancing energy transition. According to current trends, this type of service will diminish the use of internal combustion engines in the future months. A study of the global market scenario for EVs and their future prospects is conducted. Whether energy storage devices and power electronics converters are properly interfaced determines the efficiency of EVs. Moreover, we provide our thoughts on what to expect in the near future in this domain and even the research areas that are still accessible to both industrial and academics.},
+	urldate = {2024-06-14},
+	journal = {Energy Reports},
+	author = {Bharathidasan, Mohan and Indragandhi, V. and Suresh, Vishnu and Jasiński, Michał and Leonowicz, Zbigniew},
+	month = nov,
+	year = {2022},
+	keywords = {Communication technology, Cyber security, Electric vehicle, Energy trading},
+	pages = {9662--9685},
+}
+
+@article{antoun_detailed_2020,
+	title = {A {Detailed} {Security} {Assessment} of the {EV} {Charging} {Ecosystem}},
+	volume = {34},
+	issn = {1558-156X},
+	url = {https://ieeexplore.ieee.org/document/8994200},
+	doi = {10.1109/MNET.001.1900348},
+	abstract = {The drive for efficient, reliable, green, and connected smart cities has promoted the use of electric vehicles (EVs) as the main future means of transportation. This resulted in a breakthrough in the anticipated number of adopted EVs by the year 2020, and consequently an urge for an available and trustworthy EV charging infrastructure. The diversity of the involved players, the used technologies, the bulk data exchange, and the widespread nature of the charging network give rise to security concerns in the form of message tampering, spoofing, or delaying among others to disconcert the charging service along with the underlying power layer. Furthermore, confidentiality and privacy of user information (i.e. identity, location, payment information, etc.) is another major concern associated with the deployment and use of the charging infrastructure. Thus, there is a need to identify and classify such concerns, and devise suitable solutions for a secure charging infrastructure. In this paper, we present a security assessment of the EV charging infrastructure. We highlight and categorize cyber threats targeting different players in a charging system, along with the security solutions presented in the literature. Finally, we present a gap analysis and insights into future research directions for EV charging system security.},
+	number = {3},
+	urldate = {2024-06-14},
+	journal = {IEEE Network},
+	author = {Antoun, Joseph and Kabir, Mohammad Ekramul and Moussa, Bassam and Atallah, Ribal and Assi, Chadi},
+	month = may,
+	year = {2020},
+	note = {Conference Name: IEEE Network},
+	keywords = {Charging stations, Electric vehicle charging, Meters, Pricing, Security, Smart meters},
+	pages = {200--207},
+	file = {IEEE Xplore Abstract Record:/home/jakob/Zotero/storage/TPIBRXUE/8994200.html:text/html;IEEE Xplore Full Text PDF:/home/jakob/Zotero/storage/2NQBAR7H/Antoun et al. - 2020 - A Detailed Security Assessment of the EV Charging .pdf:application/pdf},
+}
+
+@inproceedings{pratt_vehicle_2019,
+	title = {Vehicle {Charging} {Infrastructure} {Security}},
+	url = {https://ieeexplore.ieee.org/document/8662043},
+	doi = {10.1109/ICCE.2019.8662043},
+	abstract = {The electric vehicle charging infrastructure supports Plug-in Electric Vehicle (PEV) refueling through vehicle charging equipment (EVSE). Communication and control methods are being developed and tested to respond to growing PEV electrical load and enable this new grid load to expand renewable resource integration and grid services, without additional electrical distribution system capacity and investment. The new communication and control method increases the potential for cyberattacks or malware to pass through the electric vehicle charging infrastructure. The infrastructure-comprising EVs, EVSEs, building automation and energy management systems, and electric power grid-can be adversely impacted, negatively affecting safety, reliability and efficacy objectives.In this work, we describe principles of Vehicle Charging Infrastructure Security (VCIS) that addresses critical gaps in the present security paradigm, while retaining privacy and autonomy of stakeholders. The VCIS principles we enumerate are: isolate network communications, implement advanced, continuous monitoring by "trusted" entities, verify compatibility of physical measurements and cyber state, and incorporate processes to respond and recover to cyberattacks commensurate with the threat. We further foresee that information sharing and coordination between car manufacturers, EVSE vendors, facilities, and electric utilities is essential for VCIS success.},
+	urldate = {2024-06-14},
+	booktitle = {2019 {IEEE} {International} {Conference} on {Consumer} {Electronics} ({ICCE})},
+	author = {Pratt, Richard M. and Carroll, Thomas E.},
+	month = jan,
+	year = {2019},
+	note = {ISSN: 2158-4001},
+	keywords = {Control systems, Energy management, Malware, Power grids, Reliability, Security},
+	pages = {1--5},
+	file = {IEEE Xplore Abstract Record:/home/jakob/Zotero/storage/NBRI5PMI/8662043.html:text/html;IEEE Xplore Full Text PDF:/home/jakob/Zotero/storage/VSAALFIV/Pratt and Carroll - 2019 - Vehicle Charging Infrastructure Security.pdf:application/pdf},
+}
+
+@article{sklyar_chargepoint_nodate,
+	title = {{ChargePoint} {Home} security research},
+	language = {en},
+	author = {Sklyar, Dmitry},
+	file = {Sklyar - ChargePoint Home security research.pdf:/home/jakob/Zotero/storage/JZTHXLSI/Sklyar - ChargePoint Home security research.pdf:application/pdf},
 }
