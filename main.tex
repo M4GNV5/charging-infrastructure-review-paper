@@ -2,6 +2,9 @@
 % The class iaria.cls loads biblatex/biber with correct IARIA settings
 % as well as a set of common packages (times, inputenc[utf8], fontenc[T1],
 % graphicx, xcolor, url, orcidlink, hyperref, extdash[shortcuts])
+
+\usepackage{subfigure}
+
 \addbibresource{references.bib}
 \title{Minimal Working Example of an IARIA Paper}
 \author{
@@ -30,13 +33,12 @@ With people buying more and more electric vehicles, the demand for charging infr
 In Germany not only electric vehicles, but also the buildup of charging infrastructure got heaviliy subsidized by the government.
 This high demand and government incentives resulted in a rapid growth in charging station numbers, suppliers and operators \cite{stats_chargepoints}.
 Due to the rushed development, the cybersecurity of current charging stations is below average compared to other cyberphysical systems \cite{nasr_power_2022, johnson_review_2022, ahalawat_security_2022}.
-Recently cybersecurity researchers investigating charging backend infrastructure have found a range of text book vulernabilities, such as SQL injection, cross site scripting or unauthenticated remote update procedures \cite{nasr_power_2022}. %
-%% \cite{gonium_talk} - gonium talk about charging stations: TODO often other vulnerabilities
-%% \cite{garofalaki_electric_2022} - OCPP security issues and challenges
+Recently cybersecurity researchers investigating charging backend infrastructure have found a range of text book vulernabilities, such as SQL injection, cross site scripting or unauthenticated remote update procedures \cite{nasr_power_2022}.
 \\
-In order to charge vehicle batteries fast charging stations perform high level communication with the vehicle, exchanging charging conditions and limits. The ISO15118 standard was created to allow interoperability between charging stations and vehicles of different manufacturers.
-While this paper will briefly cover communication aspects of basic charging stations, its focus is on high level communication between DC fast charging stations and the ISO15118 standard.
-% TODO extend this as transition to ISO15118 / high level charging
+This paper will focus on fast charging stations. Because of their functionality design, described in a later section, they require a high level direct communication with the vehicle for charging conditions and limits.
+While other works such as Tu et al. \cite{tu_extreme_2019} have already covered eletrical and other aspects of fast charging stations, this paper will focus on communication aspects.
+The ISO15118 standard was created for communication between charging stations and vehicles, enabling interoperability between stations and vehicles from different manufacturers.
+This high level communication protocol provides a larger attack surface compared to other charging techniques, making it more interesting for cybersecurity reserarch.
 
 \section{Charging Station Communication}
 Electricity generally comes in two forms: alternating current (AC) and direct current (DC).
@@ -55,20 +57,61 @@ The following subsections describe the communication and payment mechanisms of t
 
 \subsection{Low Level Communication}
 AC charging stations usually supply grid power directly, making them just sockets with some very basic communication to the vehicle.
+In the early days of electric vehicle adoption mainly these kind of charging stations were built.
+Because charging a modern vehicle using an AC charging station can take multiple hours, they usually aren't used for long distance driving.
+Because of their low price and low electrical requirements they are however still widely used and newly installed, especially for home and office charging as well as on park and ride parking lots. \\
+The by far most common plug for AC charging is the type 2 connector shown in figure \ref{fig:type2}. It is used not only the standard charging plug in Europe, but also in China and other parts of Asia.
+Apart from the typical connections of a 3-phase power socket, the connector incorporates two additional pins: charge pilot (CP) and proximity pilot (PP).
+These two pins are used for a very simple resistor based signaling scheme defined in IEC 61851 \cite{IEC61851} and explained by \cite{gonium_talk}:
+The charging cable includes a resistor between proximity pilot and protective earth (PE), which signals the maximum current for this cable.
+The charging station supplies a +12V/-12V pulse width modulation (PWM) signal between CP and PE.
+The vehicle contains both a diode and a resistor between CP and PE, such that the charging station can detect the presence of a vehicle based on the negative voltage being dropped by the diode and the positive voltage being reduced by the resistor.
+As soon as the vehicle is ready to charge it connects a second resistor between CP and PE further reducing the voltage.
+For unmetered AC charging this is sufficient to start a charging session.
+For public AC charging infrastructure usually external means of payment, such as mobile app activation or contactless payment have to be used before the charge session is started.
+During the charging session the charging station tells the vehicle the maximum allowed current through changing the duty cycle of the +12V/-12V PWM signal between CP and PE.
+There exists a special PWM duty cycle of 5\%, which can be used by the charging station to tell the vehicle to use the high level ISO15118 protocol for communication rather than the low level communication described in IEC 61851 \cite{IEC61851}.
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}
+        \centering
+        \includegraphics[width=.2\textwidth]{graphs/type2.pdf}
+        %\caption{IEC 62196 Type 2 connector schematic}
+        \label{fig:type2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}
+        \centering
+        \includegraphics[width=.2\textwidth]{graphs/ccs.pdf}
+        %\subcaption{Combined charging system connector schematic}
+        \label{fig:ccs}
+    \end{subfigure}
+    \caption{Schematic diagrams type 2 (left) and combined charging system (right) connectors}
+    \label{fig:connectors}
+\end{figure}
 
 % refs:
-%% \cite{antoun_detailed_2020} - claims grid communication exists, claims home chargers have high-level communication with vehicles
 %% \cite{IEC61851} - resistor & PWM communication
+%% \cite{gonium_talk} - gonium talk about charging stations: TODO often other vulnerabilities
+%% \cite{antoun_detailed_2020} - claims grid communication exists, claims home chargers have high-level communication with vehicles
 
 \subsection{High Level Communication}
+
+\iffalse
 DC charging stations on the other hand are required to communicate to the vehicle for properly supplying the correct voltage and power to the battery.
 For this high level communication the industry standard ISO15118 was created, enabling interoperability between different vehicle manufacturers and charging station vendors.
 While this standard allows possibilities for payment processing and value added services, it also comes with a lot of security implications.
+\fi
 % TODO extend this
+
 \subsection{ISO15118 Security Concepts}
 % TODO: PnC, TLS, TLS-downgrade
+
 \subsection{Other Communication Standards}
 % chademo, GB/T, MCS, ...
+%% \cite{gonium_talk} - gonium talk about charging stations: TODO often other vulnerabilities
+%% \cite{garofalaki_electric_2022} - OCPP security issues and challenges
 
 \section{Charging station technologies and vendors}
 %% \cite{das_electric_2020} - EV market share, charging standards list
