@@ -34,7 +34,7 @@ With the increasing amounts of electric vehicles on the road, the demand for pub
 While AC charging is used for charging at home, DC fast charging is commonly used when traveling long distances.
 Since DC fast charging requires higher level communication between vehicle and charging station, it provides an increased attack surface to both sides.
 This paper reviews communication standards and their implementations used in fast charging scenarios.
-Focusing on the cybersecurity aspects of these communications, we review and sketch up new mechanisms for attacking charging station communication.
+Focusing on cybersecurity aspects of these communications, we cover current and future security measures built into the communication standards between vehicles and charging stations.
 \end{abstract}
 \begin{IEEEkeywords}
 charging; fast charging; ccs; iso15118; DC charging; electric vehicle; vehicle charging.
@@ -49,7 +49,7 @@ This high demand and government incentives resulted in a rapid growth in chargin
 Due to the rushed development, the cybersecurity of current charging stations is below average compared to other cyberphysical systems \cite{nasr_power_2022, johnson_review_2022, ahalawat_security_2022}.
 Recently cybersecurity researchers investigating charging backend infrastructure have found a range of textbook vulnerabilities, such as SQL injection, cross site scripting or unauthenticated remote update procedures \cite{nasr_power_2022}.
 \\
-This paper will focus on DC fast charging stations. Because of their functional design, described in section \ref{sec:highlevelcomm}, they have a demand for complex two-way communication with the vehicle for exchanging charging parameters and limits.
+This paper focuses on DC fast charging stations. Because of their functional design, described in section \ref{sec:highlevelcomm}, they have a demand for complex two-way communication with the vehicle for exchanging charging parameters and limits.
 While other works such as Tu et al. \cite{tu_extreme_2019} have already covered eletrical and other aspects of fast charging stations, this paper will focus on communication aspects.
 The ISO15118 standard was created for communication between charging stations and vehicles, enabling interoperability between stations and vehicles from different manufacturers.
 This high level communication protocol provides a larger attack surface compared to other charging techniques, making it more interesting for cybersecurity reserarch. \\
@@ -59,9 +59,9 @@ Lastly different attack vectors and research gaps of charging communication are 
 
 \section{Charging Station Communication}
 Electricity generally comes in two forms: alternating current (AC) and direct current (DC).
-While power grids are usually AC, batteries need to be charged using DC.
+While power grids are running on AC, batteries need to be charged using DC.
 Therefore, the AC needs to be converted to DC either in the car or in the charging station itself.
-While cars usually come with an onboard AC to DC converter for charging the onboard battery, their power is usually limited to 7 to 22 kW.
+Cars usually come with an onboard AC to DC converter for charging the onboard battery, their power is usually limited to 7 to 22 kW.
 In order to achieve higher charging powers, a fast charging station provides a stationary AC to DC converter. Placing it outside of the car removes weight requirements, simplifies cooling and thus allows higher charging currents. \\
 In general charging stations can be divided into three categories:
 \begin{enumerate}
