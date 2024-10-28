@@ -11,6 +11,8 @@
 % prevent overflowing URLs in bibliography
 \usepackage{xurl}
 
+%\setlength\parindent{100pt}
+
 \DeclareFieldFormat*{url}{}
 \DeclareFieldFormat[misc]{url}{\mkbibacro{URL}\addcolon\space\url{#1}}
 \DeclareFieldFormat*{urldate}{}
@@ -31,7 +33,7 @@
 \maketitle
 \begin{abstract}
 With the increasing amounts of electric vehicles on the road, the demand for public charging stations increases as well.
-While AC charging is used for charging at home, DC fast charging is commonly used when traveling long distances.
+While alternating current (AC) is used for charging at home, direct current (DC) fast charging is commonly used when traveling long distances.
 Since DC fast charging requires higher level communication between vehicle and charging station, it provides an increased attack surface to both sides.
 This paper reviews communication standards and their implementations used in fast charging scenarios.
 Focusing on cybersecurity aspects of these communications, we cover current and future security measures built into the communication standards between vehicles and charging stations.
@@ -41,43 +43,46 @@ charging; fast charging; ccs; iso15118; DC charging; electric vehicle; vehicle c
 \end{IEEEkeywords}
 
 \section{Introduction}
-Many countries are currently transitioning away from combustion engine vehicles towards battery electric ones.
+Many countries are currently transitioning away from combustion engine vehicles towards battery electric vehicles.
 This transition is happening at a rapid rate, because buying an electric vehicle often gets incentivised through tax reductions or straight refunds \cite{kraftfahrtbundesamt_anzahl_2024}.
 With people buying more and more electric vehicles, the demand for charging infrastructure rises.
 In Germany, not only electric vehicles, but also the buildup of charging infrastructure got heavily subsidized by the government.
 This high demand and government incentives resulted in a rapid growth in charging station numbers, suppliers and operators \cite{bundesnetzagentur_anzahl_2024}.
 Due to the rushed development, the cybersecurity of current charging stations is below average compared to other cyberphysical systems \cite{nasr_power_2022, johnson_review_2022, ahalawat_security_2022}.
-Recently cybersecurity researchers investigating charging backend infrastructure have found a range of textbook vulnerabilities, such as SQL injection, cross site scripting or unauthenticated remote update procedures \cite{nasr_power_2022}.
-\\
-This paper focuses on DC fast charging stations. Because of their functional design, described in section \ref{sec:highlevelcomm}, they have a demand for complex two-way communication with the vehicle for exchanging charging parameters and limits.
+Recently, cybersecurity researchers investigating charging backend infrastructure have found a range of textbook vulnerabilities, such as SQL injection, cross site scripting or unauthenticated remote update procedures \cite{nasr_power_2022}.
+
+This paper focuses on DC fast charging stations. Because of their functional design, described in Section \ref{sec:highlevelcomm}, they have a demand for complex two-way communication with the vehicle for exchanging charging parameters and limits.
 While other works, such as Tu et al. \cite{tu_extreme_2019} have already covered electrical and other aspects of fast charging stations, this paper will focus on communication aspects.
-The ISO15118 standard was created for communication between charging stations and vehicles, enabling interoperability between stations and vehicles from different manufacturers.
-This high level communication protocol provides a larger attack surface compared to other charging techniques, making it more interesting for cybersecurity reserarch. \\
-This paper will first lay out the communication principles and handshake flow of ISO15118 and related standards in section \ref{sec:chargingcommoverview}.
-Afterwards a review of today's charging station vendors and architectures is given in sections \ref{sec:chargingstationvendors} and \ref{sec:chargingstationarchitecture}.
-Lastly, different attack vectors and research gaps of charging communication are discussed in section \ref{sec:attackvectors}.
+The ISO15118 standards \cite{isoiec_isoiec_2012, isoiec_isoiec_2012-1} was created for communication between charging stations and vehicles, enabling interoperability between stations and vehicles from different manufacturers.
+This high level communication protocol provides a larger attack surface compared to other charging techniques, making it more interesting for cybersecurity reserarch.
+
+This paper will first lay out the communication principles and handshake flow of ISO15118 and related standards in Section \ref{sec:chargingcommoverview}.
+Afterwards, a review of today's charging station vendors and architectures is given in Sections \ref{sec:chargingstationvendors} and \ref{sec:chargingstationarchitecture}, respectively.
+Lastly, different attack vectors and research gaps of charging communication are discussed in Section \ref{sec:attackvectors}.
 
 \section{Charging Station Communication} \label{sec:chargingcommoverview}
 Electricity generally comes in two forms: Alternating Current (AC) and Direct Current (DC).
 While power grids are running on AC, batteries need to be charged using DC.
 Therefore, the AC needs to be converted to DC either in the car or in the charging station itself.
 Cars usually come with an onboard AC to DC converter for charging the onboard battery, their power is usually limited to 7 to 22 kW.
-In order to achieve higher charging powers, a fast charging station provides a stationary AC to DC converter. Placing it outside of the car removes weight requirements, simplifies cooling and thus allows higher charging currents. \\
-In general charging stations can be divided into three categories: Unmetered AC charging (often used in residential buildings), Commercial AC charging stations and DC fast charging stations.
+In order to achieve higher charging powers, a fast charging station provides a stationary AC to DC converter. Placing it outside of the car removes weight requirements, simplifies cooling and thus allows higher charging currents.
+
+In general, charging stations can be divided into three categories: Unmetered AC charging (often used in residential buildings), Commercial AC charging stations and DC fast charging stations.
 The following subsections describe the communication and payment mechanisms of these three kinds of charging stations as well as the included security concepts.
 
 \subsection{Low Level Communication}
-AC charging stations usually supply grid power directly, making them just sockets with some very basic communication to the vehicle.
+AC charging stations usually supply power from the grid directly, making them just sockets with some very basic communication to the vehicle.
 In the early days of electric vehicle adoption, mainly these kind of charging stations were built.
-Because charging a modern vehicle using an AC charging station can take multiple hours, they usually aren't used for long distance traveling.
-Because of their low price and low electrical requirements, they are however still widely used and newly installed, especially for home and office charging as well as on park and ride parking lots. \\
-The by far most common plug for AC charging is the type 2 connector shown in Figure \ref{fig:euconnectors}. It is used not only as the standard charging plug in Europe, but also in China and other parts of Asia.
+Because charging a modern vehicle using an AC charging station can take multiple hours, they usually are not used for long distance traveling.
+Because of their low price and low electrical requirements, they are however still widely used and newly installed, especially for home and office charging as well as on park and ride parking lots.
+
+The most common plug for AC charging by far is the type 2 connector shown in Figure \ref{fig:euconnectors}. It is used not only as the standard charging plug in Europe, but also in China and other parts of Asia.
 Apart from the typical connections of a 3-phase power socket, the connector incorporates two additional pins: Charge Pilot (CP) and Proximity Pilot (PP).
 These two pins are used for a very simple resistor based signaling scheme defined in IEC 61851 \cite{iec_iec_2010} and explained by \cite{dalheimer_ladeinfrastruktur_2017}:
 The charging cable includes a resistor between proximity pilot and Protective Earth (PE), which signals the maximum current for this cable.
 The charging station supplies a +12V/-12V Pulse Width Modulation (PWM) signal between CP and PE.
 The vehicle contains both a diode and a resistor between CP and PE, such that the charging station can detect the presence of a vehicle based on the negative voltage being dropped by the diode and the positive voltage being reduced by the resistor.
-As soon as the vehicle is ready to charge it connects a second resistor between CP and PE further reducing the voltage.
+As soon as the vehicle is ready to charge, it connects a second resistor between CP and PE further reducing the voltage.
 For unmetered AC charging this is sufficient to start a charging session.
 For public AC charging infrastructure usually external means of payment, such as mobile app activation or contactless payment have to be used before the session is started.
 During the charging session the charging station tells the vehicle the maximum allowed current through changing the duty cycle of the +12V/-12V PWM signal between CP and PE.
@@ -105,30 +110,35 @@ There exists a special PWM duty cycle of 5\%, which can be used by the charging 
 \subsection{High Level Communication} \label{sec:highlevelcomm}
 While charging a vehicle with AC requires little to no communication,
 DC charging stations on the other hand are required to communicate to the vehicle for properly supplying the correct voltage and power to the battery.
-For this high level communication the industry standard ISO15118 \cite{isoiec_isoiec_2012} was created, enabling interoperability between different vehicle manufacturers and charging station vendors.
-The standard is based on more or less common standards for all layers of the OSI model:
+For this high level communication, the industry standard ISO15118 \cite{isoiec_isoiec_2012} was created, enabling interoperability between different vehicle manufacturers and charging station vendors.
+The standard is based on more or less common standards for all layers of the Open System Interconnect (OSI) model:
 After the initial handshake of the low level communication, as described in the previous section, the charging station signals the vehicle to use high level communication by supplying a PWM duty cycle of 5\%.
-Afterwards a powerline communication is modulated on top of the PWM signal between the charge pilot and protective earth.
+Afterwards, a powerline communication is modulated on top of the PWM signal between the charge pilot and protective earth.
 To prevent crosstalk problems \cite{li_crosstalk_2019, theethayi_parameters_2003, ngo_bisse_crosstalk_2023} usually arising with powerline communication, ISO15118-3 \cite{isoiec_isoiec_2012-1} describes \enquote{Signal Level Attentuation Characterization} (SLAC).
 SLAC measures the interference on the powerline communication line as well as matches vehicles with their nearest charging station connected to the powerline and exchanges a network key for encryption.
 Once powerline communication is established, IPv6 with link-local stateless autoconfigured addresses is used on top for communication between the charging station and the vehicle.
-While the ISO15118-2 standard \cite{isoiec_isoiec_2012} itself is based on TCP, first a UDP broadcast service discovery is used for exchanging IPv6 addresses as well as the port to connect to.
+While the ISO15118-2 standard \cite{isoiec_isoiec_2012} itself is based on the Transmission Control Protocol (TCP), first a User Datagram Protocol
+(UDP) broadcast service discovery is used for exchanging IPv6 addresses as well as the port to connect to.
 Afterwards the TCP connection is established, and from there on used for transmitting actual payloads required for starting a charging session and controlling charging limits.
-For encoding payloads on this TCP connection the standard defines a \enquote{Vehicle to Grid Transfer Protocol} (V2GTP) packet format, which apart from some metadata contains one large payload blob encoded in the \enquote{Efficient XML Interchange} (EXI) format. \\
+For encoding payloads on this TCP connection the standard defines a \enquote{Vehicle to Grid Transfer Protocol} (V2GTP) packet format, which apart from some metadata contains one large payload blob encoded in the \enquote{Efficient XML Interchange} (EXI) format.
+
 The ISO15118-2 standard defines a list of request messages sent from the vehicle to the charging station and corresponding response messages sent from the charging station to the vehicle.
-Before charging can start, first payment and precharging has to be performed.
-For payment the vehicle first asks the charging station for supported payment methods.
+Before charging can start, payment and precharging have to be performed.
+For payment, the vehicle first asks the charging station for supported payment methods.
 As of today, mostly the \verb'external' payment method is used, which requires the user to pay through an app, RFID card or electronic cash.
-The standard also supports certificate based authentication, which will be covered in the next section. \\
-After payment was successful the charging station performs insulation checks on the charging cable.
-Afterwards the precharge procedure is initiated.
-During precharge the charging station supplies a voltage to the charging cable, without the main battery contactor relay being closed in the vehicle.
-The precharging procedure makes sure the voltage present at the cable matches the battery voltage, reducing in rush current and reducing wear on the contactor relay. \\
+The standard also supports certificate based authentication, which will be covered in the next section.
+
+After payment was successful, the charging station performs insulation checks on the charging cable.
+Afterwards, the precharge procedure is initiated.
+During precharge, the charging station supplies a voltage to the charging cable, without the main battery contactor relay being closed in the vehicle.
+The precharging procedure makes sure the voltage present at the cable matches the battery voltage, reducing in rush current and reducing wear on the contactor relay.
+
 After precharging the main charge loop is initiated, consisting of two packets used repeatedly: \verb'CurrentDemandReq' and \verb'CurrentDemandRes'.
 The first one is sent by the vehicle to request a specific voltage and current flowing into the vehicles battery.
 The latter one is sent by the charging station informing the vehicle about currently measured voltage and current as well as the charging stations limits.
 For example, the car might request a voltage of $369V$ and a maximum current of $400A$ resulting in a desired charging power of $148kW$.
-While the voltage has to be met, depending on the charging stations maximum output power the current might be lower than the requested value, resulting in a slower charging speed. \\
+While the voltage has to be met, depending on the charging stations maximum output power the current might be lower than the requested value, resulting in a slower charging speed.
+
 This main charge loop is repeated until one of the two parties terminates the charging session, opening the main contactor and disabling all current flowing into the battery.
 
 
@@ -183,13 +193,13 @@ This main charge loop is repeated until one of the two parties terminates the ch
 While the most commonly used scheme for the charging communication is based on plain TCP, the ISO15118 standard also allows to use Transport Layer Security (TLS) for encrypted communication.
 Using the UDP broadcast packet, the vehicle can signal support for TLS encrypted communication.
 If the charging station also supports TLS encryption it signals this to the vehicle in the UDP response including a port to connect to using TLS.
-While TLS provides a secure way of communication, in order to handle authentication it requires a Private Key Infrastructure (PKI) to sign and distribute certificates.
+While TLS provides a secure way of communication, in order to handle authentication, it requires a Private Key Infrastructure (PKI) to sign and distribute certificates.
 ISO15118 describes a potential layout of this PKI handing out certificates to vehicle manufacturers and charge point operators, but does not name a specific entity managing this PKI.
 
 
 
 \subsection{Other Communication Standards}
-While Type 2 and CCS are the most used plugs for passanger cars in Europe, there do exist some other plugs and charging standards for fast charging battery electric vehicles.
+While type 2 and combined charging standard (CCS) are the most used plugs for passanger cars in Europe, there do exist some other plugs and charging standards for fast charging battery electric vehicles.
 In total there are five other major plugs used for fast charging around the globe, listed below and shown schematically in Figure \ref{fig:connectors}:
 
 \begin{enumerate}
@@ -205,10 +215,11 @@ There exists a type 1 CCS connector, adding two pins for DC charging, similarly 
 Since communication is identical they can both be referred to as \enquote{CCS connectors}, or specified as \enquote{CCS1 connector} for the American version and \enquote{CCS2 connector} for the European version.
 Similarly the megawatt charging system is also based on ISO15118, but uses a different connector, allowing higher currents and thus faster charging intended for trucks and buses.
 After Tesla open sourced their proprietary connector in 2022 \cite{noauthor_opening_nodate} it became quickly adopted by car manufacturers and charging station operators for vehicles sold in America.
-While its socket is different, it is also based on ISO15118 communication described above. \\
-GB/T and CHAdeMO are the charging standards used in China and Japan respectively.
+While its socket is different, it is also based on ISO15118 communication described above.
+
+GB/T and CHAdeMO are the charging standards used in China and Japan, respectively.
 They use CAN bus for communication rather than powerline making their implementation easier and cheaper, while disallowing advanced use cases ISO15118 provides.
-Since EV sales are much higher in Asia than in Europe and North America \cite{noauthor_trends_nodate}, the worldwide market share of vehicles with GB/T and CHAdeMO sockets remains significant nevertheless their usage only in China and Japan.
+Since electric vehicle sales are much higher in Asia than in Europe and North America \cite{noauthor_trends_nodate}, the worldwide market share of vehicles with GB/T and CHAdeMO sockets remains significant nevertheless their usage only in China and Japan.
 According to Blech \cite{blech_project_nodate} at the end of 2019 the combined market share of GB/T and CHAdeMO was 55\%. Figure \ref{fig:connector_marketshare} shows the market share of all connectors.
 
 \begin{figure}[ht]
@@ -231,14 +242,17 @@ According to Blech \cite{blech_project_nodate} at the end of 2019 the combined m
 \end{figure}
 
 After the standardization of the type 2 connector in 2009 and even after the introduction of CCS in 2014 most charging stations built offered only AC charging.
-Since AC charging stations include mostly components also found in home and industrial electric installations, companies active in the field of electric components and installations, such as Mennekes, Hager and E.ON, started building AC charging stations \cite{dalheimer_ladeinfrastruktur_2017}. \\
+Since AC charging stations include mostly components also found in home and industrial electric installations, companies active in the field of electric components and installations, such as Mennekes, Hager and E.ON, started building AC charging stations \cite{dalheimer_ladeinfrastruktur_2017}.
+
 After CCS connectors became more popular in electric vehicles and the demand for high power fast charging grew \cite{das_electric_2020}, some companies started developing and producing DC fast charging stations.
 While AC charging stations rely on simple components, DC charging stations are more complex, incorporating AC to DC conversion, high level communication and cooling equipment.
-While the market of AC charging station manufacturers is quite diverse, the complexity of DC charging causes only a handful of companies to produce significant numbers of high power charging stations. \\
+While the market of AC charging station manufacturers is quite diverse, the complexity of DC charging causes only a handful of companies to produce significant numbers of high power charging stations.
+
 As a part of this research we analyzed the current market share of DC charging stations in Germany.
-The largest registry of charging stations in Germany is \url{goingelectric.de}. This community led effort manages an interactive map as well as an API to fetch positions and metadata for each charging point \cite{noauthor_dokumentation_nodate}.
+The largest registry of charging stations in Germany is \url{goingelectric.de}. This community led effort manages an interactive map as well as an API to fetch positions and metadata for each charging point.
 Each datapoint in the goingelectric database includes information about the manufacturer and model of the corresponding charging station.
-By analyzing the counts of all CCS based charging stations in Germany per manufacturer, we calculated the relative market share for each manufacturer. \\ 
+By analyzing the counts of all CCS based charging stations in Germany per manufacturer, we calculated the relative market share for each manufacturer.
+
 With currently over 6000 DC charging points Alpitronic manufactured over 50\% of todays DC charging stations in Germany.
 Second place is Tesla with its own supercharger devices and self managed charging network making up 18.5\%.
 ABB is the only traditional electric installation company active not only in the AC charging station market, but also producing DC charging stations, making up 12.0\% of all DC charging stations currently installed in Germany.
@@ -265,13 +279,16 @@ Figure \ref{fig:marketshare} shows the market share of all manufacturers current
 \section{Charging Station Architectures} \label{sec:chargingstationarchitecture}
 While the interface between vehicle and charging station is standardized, the communication with other electric components making up a charging park is not.
 Other research has already extensively covered different electrical aspects and their attributes in regard to battery charging \cite{tu_extreme_2019, das_electric_2020, deb_review_2021}.
-While the details of high power electronics are hardly relevant to this technology review, some of their attributes influence charging station architecture as well as communication aspects with other systems. \\
+While the details of high power electronics are hardly relevant to this technology review, some of their attributes influence charging station architecture as well as communication aspects with other systems.
+
 Since electric vehicle power demand is not linear during a charging cycle \cite{noauthor_audi_nodate}, DC charging stations often share AC to DC power conversion electronics between multiple outlets.
 For example, Alpitronic chargers contain two to four AC to DC power conversion modules and typically include two CCS outlets.
 When two cars are being charged at once, rather than statically assigning conversion modules to outlets, the modules are dynamically switched between outlets.
-This switching allows the charge power to be distributed unevenly between both vehicles based on the demand of each vehicle, effectively increasing the maximum output per outlet without increasing the total amount of conversion modules. \\
+This switching allows the charge power to be distributed unevenly between both vehicles based on the demand of each vehicle, effectively increasing the maximum output per outlet without increasing the total amount of conversion modules.
+
 The first three generations of Tesla superchargers used a similar load sharing technique.
-The new v4 superchargers feature larger conversion modules converting AC grid power to DC and one DC to DC conversion module for each supercharger outlet. \\
+The new v4 superchargers feature larger conversion modules converting AC grid power to DC and one DC to DC conversion module for each supercharger outlet.
+
 Apart from the internal communication and power management required to service multiple vehicles from one charging station, most charging stations are essentially independent systems, with no external communication.
 While integration with external power providers such as solar and stationary battery storage promises to be beneficial for grid optimization \cite{deb_review_2021}, we could find only little evidence of charging stations communicating with external devices other than through standardized charging protocols.
 
@@ -294,7 +311,8 @@ The following factors play a role when designing a charging station architecture
 \subsection{AC vs DC Bus architectures}
 Taking these factors into consideration Deb et al. \cite{deb_review_2021} discuss two different approaches when building up charging parks: DC bus systems and AC bus systems.
 In AC bus systems all devices in the charge park either produce energy feeding into the AC bus or consume energy from the AC bus.
-Usually the AC bus is the regular energy grid, making this approach easy and cheap to implement, while allowing the use of a wide range of off the shelf solar and battery storage components. \\
+Usually the AC bus is the regular energy grid, making this approach easy and cheap to implement, while allowing the use of a wide range of off the shelf solar and battery storage components.
+
 In DC bus systems all devices in the charge park directly feed into a DC power line. Because both solar panels as well as batteries run on DC power this approach eliminates significant conversions losses when converting power from DC to AC and back.
 Thus this approach promises higher efficiency and thus less operating cost it.
 While AC solar inverters and battery storage solutions are commonly used in industrial and home applications, specialized DC solutions are not commonly available as of today, leading to DC bus architectures having a higher up front investment and complexity.
@@ -307,10 +325,12 @@ None of these manufacturers allow directly feeding in DC power into their chargi
 They do however implement one remedy to decrease the impact of the dynamic charge speed of electric vehicles: Providing two charging sockets per charging station and performing load sharing between the two.
 For example, Alpitronic chargers contain two to four AC to DC power conversion modules.
 When two cars are being charged at once, rather than statically assigning conversion modules to outlets, the modules are dynamically switched between outlets.
-This switching allows the charge power to be distributed unevenly between both vehicles based the demand on each outlet, effectively increasing the maximum output per outlet without increasing the total amount of conversion modules. \\
+This switching allows the charge power to be distributed unevenly between both vehicles based the demand on each outlet, effectively increasing the maximum output per outlet without increasing the total amount of conversion modules.
+
 While the first three generations of Tesla superchargers used a similar load sharing technique, the new v4 superchargers are the first DC bus based charging stations.
 They feature larger conversion module converting AC grid power to DC and one DC to DC conversion module for each supercharger outlet.
-One conversion module is placed per four superchargers, interconnecting the conversion modules using a DC bus at nearly 1000V. \\
+One conversion module is placed per four superchargers, interconnecting the conversion modules using a DC bus at nearly 1000V.
+
 With Tesla being a manufacturer of not only charging stations, but also solar and stationary battery storage solutions, they were the first to introduce a DC bus charging station system, possibly integrating solar and storage directly with the bus at a later stage.
 With these kind of systems being more efficient and demand in vehicle charging steadily increasing, more manufacturers can be expected to develop similar systems in the future.
 
@@ -323,26 +343,29 @@ With these kind of systems being more efficient and demand in vehicle charging s
 \section{Attack Vectors and Impact} \label{sec:attackvectors}
 There already exists some research regarding the security of charging stations. Most of them however focus either on high level risk assessments \cite{acharya_cybersecurity_2020, sanghvi_cybersecurity_2021, assi_ensuring_2023, mahrukh_load_2023, park_potential_2019, ahalawat_security_2022, bao_threat_2018} or target aspects of vehicle charging other than DC fast charging communication \cite{nasr_chargeprint_2023, sklyar_chargepoint_nodate, sarieddine_investigating_2023, nasr_large-scale_nodate, nasr_power_2022}.
 The following subsection describes some of the few attacks successfully carried out against DC charging communications.
-Afterwards general problems with implementing the security concepts defined in ISO15118 are discussed.
+Afterwards, general problems with implementing the security concepts defined in ISO15118 are discussed.
 
 \subsection{Low Level Communication Attacks}
 One attack vector of the ISO15118 standard is targeting the low level powerline communication used as a physical layer.
-Baker et al. \cite{baker_losing_2019} first described an attack on the powerline communication, eavesdropping electromagnetic interference produced by the modulated powerline packets on top of the PWM signal described in section \ref{sec:highlevelcomm}.
-While their approach was not reliable enough to capture all of the traffic between charging station and vehicle, they were able to extract the powerline network key exchanged during SLAC, allowing to decrypt further communication. \\
+Baker et al. \cite{baker_losing_2019} first described an attack on the powerline communication, eavesdropping electromagnetic interference produced by the modulated powerline packets on top of the PWM signal described in Section \ref{sec:highlevelcomm}.
+While their approach was not reliable enough to capture all of the traffic between charging station and vehicle, they were able to extract the powerline network key exchanged during SLAC, allowing to decrypt further communication.
+
 Another attack on the powerline communication demonstrated by \cite{kohler_brokenwire_2023} performs a denial of service by jamming the powerline communication signal.
 Since this attack effectively terminates the currently running charging session, the user has to re-authenticate and restart charging manually afterwards.
 
 \subsection{ISO15118 Security Implementation}
-As described in section \ref{sec:iso15118tls}, the ISO15118 standard uses TLS for securing communication and even for payment authentication. \\
+As described in Section \ref{sec:iso15118tls}, the ISO15118 standard uses TLS for securing communication and even for payment authentication.
+
 Support for TLS is signaled by the vehicle and confirmed by the charging station during the UDP based discovery and handshaking.
-Since this initial communication is neither encrypted nor authenticated, a potential attacker can easily perform a TLS-downgrading attack, effectively disabling encryption in all further communication. \\
+Since this initial communication is neither encrypted nor authenticated, a potential attacker can easily perform a TLS-downgrading attack, effectively disabling encryption in all further communication.
+
 Another problem with the standard lies in it not naming a company or institute handing out certificates required for TLS communication.
 As of today there are at least four different companies that created a PKI and allow third parties to acquire certificates \cite{charin_charin_nodate, hubject_download_nodate, nexusgroup_identities_nodate, irdeto_irdeto_nodate}.
 Normally a certificate authority simply provides certificates for a service provider, for example for a website.
 With ISO15118 however, the vehicle requires a matching client certificate for authenticating.
 Thus while having multiple certificate authorities is generally a good idea, it creates a maintenance overhead for both vehicle manufacturers and charging station operators in order to support all authorities.
 Because of this complexity, as of today the vast majority of all charging communication sessions is not encrypted at all.
-Since TLS is required in order to use plug and charge, users have to use external payment menthods such as RFID cards or apps rather than PnC.
+Since TLS is required in order to use plug and charge (PnC), users have to use external payment menthods such as smart cards or apps rather than PnC.
 While PnC promises to improve usability and thus overall technology acceptance, the nature of the TLS implementation details set by the ISO15118 charging standard hinder its spread and is thus rarely used today.
 
 
@@ -350,10 +373,12 @@ While PnC promises to improve usability and thus overall technology acceptance, 
 \section{Conclusion}
 As discussed in this paper, the market of both AC and DC charging stations is growing rapidly.
 Even though DC fast charging stations come with additional security implications, cybersecurity has not been a focus of the charging station industry in the past, leading to many textbook vulnerabilities in charging infrastructure.
-In the recent past this situation is starting to improve, with various institutions publishing guidelines and plans on securing charging infrastructure \cite{mccarthy_cybersecurity_2023, encs_security_nodate}. \\
+In the recent past this situation is starting to improve, with various institutions publishing guidelines and plans on securing charging infrastructure \cite{mccarthy_cybersecurity_2023, encs_security_nodate}.
+
 While this is a step in the correct direction, a lot of low hanging fruits in regard to security research of DC charging stations remain untouched.
 This is underlined by the fact, that most scientific publications covering cybersecurity of charging communication are purely theoretical.
-While some AC charging stations and some web based services have been targets of security research, little research has been done targeting DC fast charging stations nor their communication with vehicles. \\
+While some AC charging stations and some web based services have been targets of security research, little research has been done targeting DC fast charging stations nor their communication with vehicles.
+
 In future work, our plan is to perform penetration testing on charging station communication implementations both manually and using automated pentesting techniques.
 The goal of our future research will be to not only identify vulnerabilities in implementations, but also identifying general problems with the ISO15118 standard.
 One promising approach we are currently working on is to use state of the art fuzzing techniques for automatically identifying edge cases in the protocol and its implementations.
